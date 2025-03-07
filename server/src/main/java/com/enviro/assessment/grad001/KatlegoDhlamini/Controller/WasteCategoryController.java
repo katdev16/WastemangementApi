@@ -1,8 +1,11 @@
 package com.enviro.assessment.grad001.KatlegoDhlamini.Controller;
 
 import com.enviro.assessment.grad001.KatlegoDhlamini.Entity.WasteCategory;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Exceptions.ResourceNotFoundException;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Exceptions.InvalidInputException;
 import com.enviro.assessment.grad001.KatlegoDhlamini.Services.WasteCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,41 +15,60 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/waste-categories")
-class WasteCategoryController {
+public class WasteCategoryController {
     @Autowired
     private WasteCategoryService service;
 
+    // ✅ Get all categories
     @GetMapping
-    public List<WasteCategory> getAllCategories() {
-        return service.getAllCategories();
+    public ResponseEntity<List<WasteCategory>> getAllCategories() {
+        List<WasteCategory> categories = service.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
 
+    // ✅ Get category by ID with error handling
     @GetMapping("/{id}")
     public ResponseEntity<WasteCategory> getCategoryById(@PathVariable int id) {
-        return ResponseEntity.ok(service.getCategoryById(id));
+        WasteCategory category = service.getCategoryById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + id + " not found."));
+        return ResponseEntity.ok(category);
     }
 
+    // ✅ Create a new category with validation
     @PostMapping
     public ResponseEntity<WasteCategory> createCategory(@RequestBody @Validated WasteCategory category) {
-        return ResponseEntity.ok(service.saveCategory(category));
+        if (category.getName() == null || category.getName().isEmpty()) {
+            throw new InvalidInputException("Category name cannot be empty.");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveCategory(category));
     }
 
+    // ✅ Update category with error handling
     @PutMapping("/{id}")
     public ResponseEntity<WasteCategory> updateCategory(@PathVariable int id, @RequestBody @Validated WasteCategory category) {
-        return ResponseEntity.ok(service.updateCategory(id, category));
+        if (category.getName() == null || category.getName().isEmpty()) {
+            throw new InvalidInputException("Category name cannot be empty.");
+        }
+        WasteCategory updatedCategory = service.updateCategory(id, category)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + id + " not found."));
+        return ResponseEntity.ok(updatedCategory);
     }
 
+    // ✅ Delete category with error handling
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
-        service.deleteCategory(id);
+        boolean deleted = service.deleteCategory(id);
+        if (!deleted) {
+            throw new ResourceNotFoundException("Category with ID " + id + " not found.");
+        }
         return ResponseEntity.noContent().build();
     }
 
-//    lookup endpoint
+    // ✅ Lookup by name with error handling
     @GetMapping("/lookup")
     public ResponseEntity<WasteCategory> getCategoryByName(@RequestParam String name) {
         Optional<WasteCategory> category = service.findCategoryByName(name);
         return category.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Category '" + name + "' not found."));
     }
 }
