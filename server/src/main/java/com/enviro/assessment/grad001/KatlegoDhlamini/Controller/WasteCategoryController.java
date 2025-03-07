@@ -43,8 +43,8 @@ class WasteCategoryController {
     }
 
 //    lookup endpoint
-    @GetMapping("/{name}")
-    public ResponseEntity<WasteCategory> getCategoryByName(@PathVariable String name) {
+    @GetMapping("/lookup")
+    public ResponseEntity<WasteCategory> getCategoryByName(@RequestParam String name) {
         Optional<WasteCategory> category = service.findCategoryByName(name);
         return category.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
