@@ -35,9 +35,12 @@ public class WasteCategoryService {
         return repository.save(category);
     }
 
-    public void deleteCategory(int id) {
-        WasteCategory category = getCategoryById(id);
-        repository.delete(category);
+    public boolean deleteCategory(int id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 //    adding waste lookup
