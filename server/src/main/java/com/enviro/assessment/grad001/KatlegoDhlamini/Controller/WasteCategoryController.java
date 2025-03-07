@@ -28,11 +28,20 @@ public class WasteCategoryController {
 
     // ✅ Get category by ID with error handling
     @GetMapping("/{id}")
-    public ResponseEntity<WasteCategory> getCategoryById(@PathVariable int id) {
-        WasteCategory category = service.getCategoryById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + id + " not found."));
-        return ResponseEntity.ok(category);
+    public ResponseEntity<?> getCategoryById(@PathVariable int id) {
+        try {
+            WasteCategory category = service.getCategoryById(id);
+            if (category == null) {
+                throw new ResourceNotFoundException("Category with ID " + id + " not found.");
+            }
+            return ResponseEntity.ok(category);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An unexpected error occurred.");
+        }
     }
+
 
     // ✅ Create a new category with validation
     @PostMapping
@@ -45,14 +54,28 @@ public class WasteCategoryController {
 
     // ✅ Update category with error handling
     @PutMapping("/{id}")
-    public ResponseEntity<WasteCategory> updateCategory(@PathVariable int id, @RequestBody @Validated WasteCategory category) {
-        if (category.getName() == null || category.getName().isEmpty()) {
-            throw new InvalidInputException("Category name cannot be empty.");
+    public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody @Validated WasteCategory category) {
+        try {
+            if (category.getName() == null || category.getName().isEmpty()) {
+                throw new InvalidInputException("Category name cannot be empty.");
+            }
+
+            WasteCategory updatedCategory = service.updateCategory(id, category);
+
+            if (updatedCategory == null) {
+                throw new ResourceNotFoundException("Category with ID " + id + " not found.");
+            }
+
+            return ResponseEntity.ok(updatedCategory);
+        } catch (InvalidInputException e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An unexpected error occurred.");
         }
-        WasteCategory updatedCategory = service.updateCategory(id, category)
-                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + id + " not found."));
-        return ResponseEntity.ok(updatedCategory);
     }
+
 
     // ✅ Delete category with error handling
     @DeleteMapping("/{id}")
