@@ -1,7 +1,7 @@
-package com.Api.server.Repo;
+package com.enviro.assessment.grad001.KatlegoDhlamini.Repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.Api.server.Entity.WasteCategory;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Entity.WasteCategory;
 
 import java.util.Optional;
 

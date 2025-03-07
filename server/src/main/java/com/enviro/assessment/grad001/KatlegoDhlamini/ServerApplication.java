@@ -1,4 +1,4 @@
-package com.Api.server;
+package com.enviro.assessment.grad001.KatlegoDhlamini;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,7 +1,7 @@
-package com.Api.server.Services;
+package com.enviro.assessment.grad001.KatlegoDhlamini.Services;
 
-import com.Api.server.Entity.WasteCategory;
-import com.Api.server.Repo.WasteRepository;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Entity.WasteCategory;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Repo.WasteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

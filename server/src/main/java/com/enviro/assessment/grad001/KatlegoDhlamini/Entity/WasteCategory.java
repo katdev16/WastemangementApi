@@ -1,4 +1,4 @@
-package com.Api.server.Entity;
+package com.enviro.assessment.grad001.KatlegoDhlamini.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
