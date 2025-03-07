@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/waste-categories")
@@ -39,5 +40,13 @@ class WasteCategoryController {
     public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
         service.deleteCategory(id);
         return ResponseEntity.noContent().build();
+    }
+
+//    lookup endpoint
+    @GetMapping("/{name}")
+    public ResponseEntity<WasteCategory> getCategoryByName(@PathVariable String name) {
+        Optional<WasteCategory> category = service.findCategoryByName(name);
+        return category.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

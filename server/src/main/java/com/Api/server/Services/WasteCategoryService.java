@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Validated
@@ -38,4 +39,9 @@ public class WasteCategoryService {
         WasteCategory category = getCategoryById(id);
         repository.delete(category);
     }
+
+//    adding waste lookup
+    public Optional<WasteCategory> findCategoryByName(String name) {
+        return repository.findByNameIgnoreCase(name);
+}
 }
