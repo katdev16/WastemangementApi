@@ -59,6 +59,7 @@ docker build -t waste-management .
 docker run -p 8080:8080 waste-management
 ```
 The API will now be running inside a Docker container.
+
 <h2>🛠️ API Endpoints</h2>
 <table border="1">
     <thead>
@@ -66,38 +67,121 @@ The API will now be running inside a Docker container.
             <th>Method</th>
             <th>Endpoint</th>
             <th>Description</th>
+            <th>Example Request</th>
+            <th>Example Response</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>GET</td>
-            <td>/api/waste-categories/{id}</td>
-            <td>Get a waste category</td>
+            <td>/api/waste-categories</td>
+            <td>Get all waste categories</td>
+            <td><code>curl -X GET http://localhost:8080/api/waste-categories</code></td>
+            <td>
+                <pre>
+[
+    {
+        "id": 1,
+        "name": "Plastic",
+        "description": "Recyclable plastic materials"
+    },
+    {
+        "id": 2,
+        "name": "Organic Waste",
+        "description": "Biodegradable food waste"
+    }
+]
+                </pre>
+            </td>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/api/waste-categories</td>
-            <td>List all waste categories</td>
+            <td>/api/waste-categories/{id}</td>
+            <td>Get a waste category by ID</td>
+            <td><code>curl -X GET http://localhost:8080/api/waste-categories/1</code></td>
+            <td>
+                <pre>
+{
+    "id": 1,
+    "name": "Plastic",
+    "description": "Recyclable plastic materials"
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/waste-categories/lookup?name=Plastic</td>
+            <td>Lookup a category by name</td>
+            <td><code>curl -X GET "http://localhost:8080/api/waste-categories/lookup?name=Plastic"</code></td>
+            <td>
+                <pre>
+{
+    "id": 1,
+    "name": "Plastic",
+    "description": "Recyclable plastic materials"
+}
+                </pre>
+            </td>
         </tr>
         <tr>
             <td>POST</td>
             <td>/api/waste-categories</td>
             <td>Add a new waste category</td>
+            <td>
+                <pre>
+curl -X POST http://localhost:8080/api/waste-categories \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Glass",
+    "description": "Recyclable glass materials"
+}'
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "id": 3,
+    "name": "Glass",
+    "description": "Recyclable glass materials"
+}
+                </pre>
+            </td>
         </tr>
         <tr>
             <td>PUT</td>
             <td>/api/waste-categories/{id}</td>
             <td>Update a waste category</td>
+            <td>
+                <pre>
+curl -X PUT http://localhost:8080/api/waste-categories/1 \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Plastic",
+    "description": "Updated description"
+}'
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "id": 1,
+    "name": "Plastic",
+    "description": "Updated description"
+}
+                </pre>
+            </td>
         </tr>
         <tr>
             <td>DELETE</td>
-            <td>/api/waste-categorie/{id}</td>
+            <td>/api/waste-categories/{id}</td>
             <td>Delete a waste category</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/api/waste-categorie/lookup/name=""</td>
-            <td>Search for category by name</td>
+            <td><code>curl -X DELETE http://localhost:8080/api/waste-categories/1</code></td>
+            <td>
+                <pre>
+HTTP 204 No Content
+                </pre>
+            </td>
         </tr>
     </tbody>
 </table>
