@@ -29,21 +29,19 @@ A **Spring Boot** REST API for waste management that provides information on **w
 ```sh
 git clone https://github.com/yourusername/waste-management-api.git
 cd waste-management-api
-'''
+```
 
 2️⃣ Build the Application
-'''sh
-Ensure you have Java 8 and Maven installed, then run:
-'''
-sh
-Copy
-Edit
+
+Ensure you have Java 17 and Maven installed, then run:
+
+```sh
 mvn clean package
+```
 3️⃣ Run the Application Locally
-sh
-Copy
-Edit
+```
 mvn spring-boot:run
+```
 The API will be available at:
 http://localhost:8080
 
@@ -53,24 +51,52 @@ Once the app is running, open:
 
 🐳 Run with Docker
 1️⃣ Build the Docker Image
-sh
-Copy
-Edit
+```sh
 docker build -t waste-management .
+```
 2️⃣ Run the Container
-sh
-Copy
-Edit
+```sh
 docker run -p 8080:8080 waste-management
+```
 The API will now be running inside a Docker container.
+<h2>🛠️ API Endpoints</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/waste/{id}</td>
+            <td>Get a waste category</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/waste</td>
+            <td>List all waste categories</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/waste</td>
+            <td>Add a new waste category</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/waste/{id}</td>
+            <td>Update a waste category</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/waste/{id}</td>
+            <td>Delete a waste category</td>
+        </tr>
+    </tbody>
+</table>
 
-🛠️ API Endpoints
-Method	Endpoint	Description
-GET	/waste/{id}	Get a waste category
-GET	/waste	List all waste categories
-POST	/waste	Add a new waste category
-PUT	/waste/{id}	Update a waste category
-DELETE	/waste/{id}	Delete a waste category
 🤝 Contributing
 We welcome contributions! To contribute:
 
