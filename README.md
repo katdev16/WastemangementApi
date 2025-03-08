@@ -98,7 +98,7 @@ The API will now be running inside a Docker container.
 </table>
 
 Project Structure
-
+ ```sh
 ├── Dockerfile
 ├── HELP.md
 ├── mvnw
@@ -170,6 +170,7 @@ Project Structure
     │                       ├── ServerApplication.class
     │                       └── Services
 
+```
 
 🤝 Contributing
 We welcome contributions! To contribute:
