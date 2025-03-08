@@ -4,6 +4,10 @@ import com.enviro.assessment.grad001.KatlegoDhlamini.Entity.WasteCategory;
 import com.enviro.assessment.grad001.KatlegoDhlamini.Exceptions.ResourceNotFoundException;
 import com.enviro.assessment.grad001.KatlegoDhlamini.Exceptions.InvalidInputException;
 import com.enviro.assessment.grad001.KatlegoDhlamini.Services.WasteCategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +23,19 @@ public class WasteCategoryController {
     @Autowired
     private WasteCategoryService service;
 
+
     // ✅ Get all categories
     @GetMapping
     public ResponseEntity<List<WasteCategory>> getAllCategories() {
         List<WasteCategory> categories = service.getAllCategories();
         return ResponseEntity.ok(categories);
     }
-
+    @Operation(summary = "Get waste category by ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful response",
+                            content = @Content(schema = @Schema(implementation = WasteCategory.class))),
+                    @ApiResponse(responseCode = "404", description = "Category not found")
+            })
     // ✅ Get category by ID with error handling
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable int id) {
