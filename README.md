@@ -261,7 +261,85 @@ Project Structure
 
 ```
 
+<h2>🚨 Error Handling</h2>
+<p>The API returns meaningful error responses with appropriate HTTP status codes when an issue occurs. Below are common errors:</p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Status Code</th>
+            <th>Cause</th>
+            <th>Example Request</th>
+            <th>Example Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>400 Bad Request</strong></td>
+            <td>Invalid input provided (e.g., missing required fields).</td>
+            <td>
+                <pre>
+curl -X POST http://localhost:8080/api/waste-categories \
+-H "Content-Type: application/json" \
+-d '{
+    "name": ""
+}'
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "Category name cannot be empty."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>404 Not Found</strong></td>
+            <td>Requested resource does not exist (e.g., invalid ID).</td>
+            <td>
+                <pre>
+curl -X GET http://localhost:8080/api/waste-categories/999
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "Category with ID 999 not found."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>500 Internal Server Error</strong></td>
+            <td>Unexpected server error.</td>
+            <td>
+                <pre>
+curl -X GET http://localhost:8080/api/waste-categories
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "An unexpected error occurred."
+}
+                </pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>Notes:</strong></p>
+<ul>
+    <li>All error messages follow a structured JSON format.</li>
+    <li>Errors such as missing parameters or invalid input return a <code>400 Bad Request</code> response.</li>
+    <li>Invalid or non-existent resources return a <code>404 Not Found</code> response.</li>
+    <li>Unexpected errors return a <code>500 Internal Server Error</code> response.</li>
+</ul>
+
+
 🤝 Contributing
+
 <br>
 We welcome contributions! To contribute:
 <br>
@@ -275,6 +353,7 @@ Push the branch (git push origin feature-name)
 <br>
 Create a Pull Request 🚀
 <br>
+
 📜 License
 <br>
 This project is licensed under the MIT License.
