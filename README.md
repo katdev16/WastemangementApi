@@ -97,6 +97,80 @@ The API will now be running inside a Docker container.
     </tbody>
 </table>
 
+Project Structure
+
+├── Dockerfile
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       ├── Api
+│   │   │       └── enviro
+│   │   │           └── assessment
+│   │   │               └── grad001
+│   │   │                   └── KatlegoDhlamini
+│   │   │                       ├── Config
+│   │   │                       │   └── TestConfig.java
+│   │   │                       ├── Controller
+│   │   │                       │   └── WasteCategoryController.java
+│   │   │                       ├── Entity
+│   │   │                       │   └── WasteCategory.java
+│   │   │                       ├── Exceptions
+│   │   │                       │   ├── GlobalExceptionHandler.java
+│   │   │                       │   ├── InvalidInputException.java
+│   │   │                       │   └── ResourceNotFoundException.java
+│   │   │                       ├── Repo
+│   │   │                       │   └── WasteRepository.java
+│   │   │                       ├── ServerApplication.java
+│   │   │                       └── Services
+│   │   │                           └── WasteCategoryService.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       └── templates
+│   └── test
+│       └── java
+│           └── com
+│               ├── Api
+│               └── enviro
+│                   └── assessment
+│                       └── grad001
+│                           └── KatlegoDhlamini
+│                               ├── Controller
+│                               │   └── WasteCategoryControllerTest.java
+│                               ├── Entity
+│                               │   └── WasteCategoryTest.java
+│                               ├── ServerApplicationTests.java
+│                               └── Services
+│                                   └── WasteCategoryServiceTest.java
+└── target
+    ├── classes
+    │   ├── application.properties
+    │   └── com
+    │       └── enviro
+    │           └── assessment
+    │               └── grad001
+    │                   └── KatlegoDhlamini
+    │                       ├── Config
+    │                       │   └── TestConfig.class
+    │                       ├── Controller
+    │                       │   └── WasteCategoryController.class
+    │                       ├── Entity
+    │                       │   └── WasteCategory.class
+    │                       ├── Exceptions
+    │                       │   ├── GlobalExceptionHandler.class
+    │                       │   ├── InvalidInputException.class
+    │                       │   └── ResourceNotFoundException.class
+    │                       ├── Repo
+    │                       │   └── WasteRepository.class
+    │                       ├── ServerApplication.class
+    │                       └── Services
+
+
 🤝 Contributing
 We welcome contributions! To contribute:
 
