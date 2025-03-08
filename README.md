@@ -29,10 +29,12 @@ A **Spring Boot** REST API for waste management that provides information on **w
 ```sh
 git clone https://github.com/yourusername/waste-management-api.git
 cd waste-management-api
+'''
 
 2️⃣ Build the Application
+'''sh
 Ensure you have Java 8 and Maven installed, then run:
-
+'''
 sh
 Copy
 Edit
