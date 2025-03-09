@@ -6,7 +6,6 @@ A **Spring Boot** REST API for waste management that provides information on **w
 
 - 📂 **Manage waste categories** (Add, View, Update, Delete, lookup)
 - ♻️ **Get disposal guidelines & recycling tips**
-- 📄 **OpenAPI documentation with Swagger UI**
 - 🛠️ **Built with Spring Boot, H2 Database, and Spring Data JPA**
 - 🐳 **Docker support**
 
@@ -18,7 +17,6 @@ A **Spring Boot** REST API for waste management that provides information on **w
 - **Spring Boot**
 - **Spring Data JPA**
 - **H2 Database**
-- **Swagger UI**
 - **Docker**
 
 ---
@@ -45,9 +43,6 @@ mvn spring-boot:run
 The API will be available at:
 http://localhost:8080
 
-4️⃣ Access Swagger API Docs
-Once the app is running, open:
-👉 http://localhost:8080/swagger-ui.html
 
 🐳 Run with Docker
 1️⃣ Build the Docker Image
