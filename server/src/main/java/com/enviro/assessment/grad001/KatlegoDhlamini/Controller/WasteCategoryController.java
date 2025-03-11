@@ -39,19 +39,11 @@ public class WasteCategoryController {
     // ✅ Get category by ID with error handling
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable int id) {
-        try {
-            WasteCategory category = service.getCategoryById(id);
-            if (category == null) {
-                throw new ResourceNotFoundException("Category with ID " + id + " not found.");
-            }
-            return ResponseEntity.ok(category);
-        } catch (ResourceNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("An unexpected error occurred.");
+        WasteCategory category = service.getCategoryById(id);
+        if (category == null) {
+            throw new ResourceNotFoundException("Category with ID " + id + " not found.");
         }
+        return ResponseEntity.ok(category);
     }
 
 
@@ -67,28 +59,16 @@ public class WasteCategoryController {
     // ✅ Update category with error handling
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody @Validated WasteCategory category) {
-        try {
-            if (category.getName() == null || category.getName().isEmpty()) {
-                throw new InvalidInputException("Category name cannot be empty.");
-            }
-
-            WasteCategory updatedCategory = service.updateCategory(id, category);
-
-            if (updatedCategory == null) {
-                throw new ResourceNotFoundException("Category with ID " + id + " not found.");
-            }
-
-            return ResponseEntity.ok(updatedCategory);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).body(e.getMessage());
-        } catch (ResourceNotFoundException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("An unexpected error occurred.");
+        if (category.getName() == null || category.getName().isEmpty()) {
+            throw new InvalidInputException("Category name cannot be empty.");
         }
+
+        WasteCategory updatedCategory = service.updateCategory(id, category);
+        if (updatedCategory == null) {
+            throw new ResourceNotFoundException("Category with ID " + id + " not found.");
+        }
+
+        return ResponseEntity.ok(updatedCategory);
     }
 
 

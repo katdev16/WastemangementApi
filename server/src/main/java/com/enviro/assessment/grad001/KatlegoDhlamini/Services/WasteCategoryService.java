@@ -1,6 +1,7 @@
 package com.enviro.assessment.grad001.KatlegoDhlamini.Services;
 
 import com.enviro.assessment.grad001.KatlegoDhlamini.Entity.WasteCategory;
+import com.enviro.assessment.grad001.KatlegoDhlamini.Exceptions.CategoryNotFoundException;
 import com.enviro.assessment.grad001.KatlegoDhlamini.Repo.WasteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class WasteCategoryService {
         return repository.findAll();
     }
     public WasteCategory getCategoryById(int id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Category not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found"));
     }
 
     public WasteCategory saveCategory(WasteCategory category) {
