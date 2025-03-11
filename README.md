@@ -321,8 +321,100 @@ curl -X GET http://localhost:8080/api/waste-categories
                 </pre>
             </td>
         </tr>
+        <tr>
+            <td><strong>400 Bad Request (Validation Error)</strong></td>
+            <td>Missing required fields (e.g., name, description) in request body.</td>
+            <td>
+                <pre>
+curl -X POST http://localhost:8080/api/waste-categories \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "",
+    "description": "Plastic items"
+}'
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "name": "Category name cannot be empty."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>404 Not Found (Category by Name)</strong></td>
+            <td>Category by name not found.</td>
+            <td>
+                <pre>
+curl -X GET http://localhost:8080/api/waste-categories/lookup?name=NonExistentCategory
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "Category 'NonExistentCategory' not found."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>404 Not Found (Delete Category)</strong></td>
+            <td>Attempting to delete a non-existent category.</td>
+            <td>
+                <pre>
+curl -X DELETE http://localhost:8080/api/waste-categories/999
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "Category with ID 999 not found."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>404 Not Found (Update Non-Existent ID)</strong></td>
+            <td>Attempting to update a non-existent category.</td>
+            <td>
+                <pre>
+curl -X PUT http://localhost:8080/api/waste-categories/999 \
+-H "Content-Type: application/json" \
+-d '{
+    "name": "Plastic Waste",
+    "description": "Plastic items"
+}'
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "Category with ID 999 not found."
+}
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>500 Internal Server Error (Unexpected Error)</strong></td>
+            <td>Unexpected server error when hitting a non-existent endpoint.</td>
+            <td>
+                <pre>
+curl -X GET http://localhost:8080/api/invalid-endpoint
+                </pre>
+            </td>
+            <td>
+                <pre>
+{
+    "error": "An unexpected error occurred."
+}
+                </pre>
+            </td>
+        </tr>
     </tbody>
 </table>
+
+
 
 <p><strong>Notes:</strong></p>
 <ul>
