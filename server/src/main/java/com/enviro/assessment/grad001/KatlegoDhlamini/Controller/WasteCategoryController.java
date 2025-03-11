@@ -46,8 +46,10 @@ public class WasteCategoryController {
             }
             return ResponseEntity.ok(category);
         } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
             return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body("An unexpected error occurred.");
         }
     }
@@ -78,10 +80,13 @@ public class WasteCategoryController {
 
             return ResponseEntity.ok(updatedCategory);
         } catch (InvalidInputException e) {
+            e.printStackTrace();
             return ResponseEntity.status(400).body(e.getMessage());
         } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
             return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body("An unexpected error occurred.");
         }
     }
